@@ -15,12 +15,13 @@ Para el estudio del Filtro del Kalman se implementaron dos versiones:
 A continuación, se indicará el contenido de los scripts que contiene el paquete, `/p2_kf_pbd/~`:
 1. **kf_estimation.py**: Nodo con el modelo básico (posición)
 2. **kf_estimation_vel.py**: Nodo con el modelo extendido (posición y velocidad) 
-3. **motion_models.py**: Modelos de movimiento (predicción).
+3. **motion_models.py**: Modelos de movimiento (predicción)
    - Para el modelo básico: Matriz de transición A y matriz de control B.
-   - Para el modelo extendido: Incluye términos para la velocidad lineal y angular
-5. **observation_models.py**: Modelo de observación (corrección). C
-6. **sensor_utils.py**: Funciones de alto nivel para los sensores
-7. **visualization.py**: Funciones de visualización de resultados
+   - Para el modelo extendido: Además de lo anterior mencionado, incluye los términos para la velocidad lineal y angular
+5. **observation_models.py**: Modelo de observación (corrección)
+   - Matrices C para mapear el estado interno a las observaciones medidas 
+7. **sensor_utils.py**: Funciones de alto nivel para los sensores
+8. **visualization.py**: Funciones de visualización de resultados
 
 
 Este repositorio contiene el código base para la **Práctica 2** de la asignatura de *Ampliación de Robótica*, cuyo objetivo es implementar un **Filtro de Kalman (KF)** en un entorno simulado con **ROS 2**.
