@@ -25,52 +25,45 @@ A continuación, se indicará el contenido de los scripts que contiene el paquet
 
 ## Implementación para cada caso 
 
-### KalmanFilter (Modelo Básico)
+### Filtro de Kalman (Modelo Básico)
 
-#### Función de predicción: `predict(u, dt)`
-Esta función predice el estado futuro del sistema utilizando el modelo de movimiento y la entrada de control `u` con el tiempo de paso `dt`. Actualiza el estado `mu` y la matriz de covarianza `Sigma` utilizando las matrices de transición de estado (A) y de entrada de control (B), además de la covarianza del ruido del proceso (R). 
-
-**Entradas:**
-- `u`: Vector de control
-- `dt`: Tiempo de paso entre predicciones.
-
-**Salidas:**
-- `mu`: Estado predicho.
-- `Sigma`: Covarianza actualizada.
+#### Función de predicción: `predict(u, dt)'
+Este método realiza la predicción del estado del sistema utilizando el modelo de movimiento. Calcula el nuevo estado estimado (mu) y la incertidumbre asociada (Sigma) en función de las matrices de transición de estado (A) y de entrada de control (B), el vector de control u, y el intervalo de tiempo dt. También incorpora la covarianza del ruido del proceso (R).
 
 #### Función de actualización: `update(z)`
-Actualiza la estimación del estado `mu` usando la medición `z` y la observación del sistema. Calcula la ganancia de Kalman `K` y ajusta el estado y la covarianza en función de la diferencia entre la medición y la predicción.
+Este método actualiza el estado estimado del sistema utilizando una observación (z). Calcula la ganancia de Kalman (K), ajusta el estado estimado (mu) en función de la diferencia entre la observación y la predicción, y actualiza la incertidumbre (Sigma) considerando el modelo de observación (C) y la covarianza del ruido de observación (Q).
 
-**Entradas:**
-- `z`: Medición o observación.
+### Filtro de Kalman (Modelo Extendido)
 
-**Salidas:**
-- `mu`: Estado actualizado.
-- `Sigma`: Covarianza actualizada.
-
-### KalmanFilter_2 (Modelo Extendido)
-
-#### Función de predicción: `predict(u, dt)`
-Esta función realiza una predicción similar a la de `KalmanFilter`, pero utilizando el modelo de movimiento extendido que incluye velocidades lineales y angulares.
-
-**Entradas:**
-- `u`: Vector de control (opcional).
-- `dt`: Tiempo de paso entre predicciones.
-
-**Salidas:**
-- `mu`: Estado predicho.
-- `Sigma`: Covarianza actualizada.
+#### Función de predicción: `predict(u=None, dt=1.0)'
+Este método realiza la predicción del estado extendido del sistema (que incluye velocidades) utilizando el modelo de movimiento. Calcula el nuevo estado estimado (mu) y la incertidumbre asociada (Sigma) en función de la matriz de transición de estado (A), el intervalo de tiempo dt, y la covarianza del ruido del proceso (R). El vector de control u es opcional.
 
 #### Función de actualización: `update(z)`
-Realiza la actualización del filtro de Kalman utilizando la medición `z` para ajustar la estimación del estado. Al igual que en `KalmanFilter`, usa el gain de Kalman para corregir el estado y la covarianza en base a la observación.
+Este método actualiza el estado extendido del sistema utilizando una observación (z). Calcula la ganancia de Kalman (K), ajusta el estado estimado (mu) en función de la observación y actualiza la incertidumbre (Sigma) considerando el modelo de observación (C) y la covarianza del ruido de observación (Q).
+
+### Estimación del filtro (Modelo Básico)
+
+#### Función de odometría: `odom_callback`
+Este método procesa los datos de odometría recibidos. Inicializa la posición inicial si no está definida, calcula el estado actual del sistema en función de la odometría y el tiempo transcurrido, y utiliza el filtro de Kalman para predecir y actualizar el estado estimado. También gestiona la visualización y la publicación de los estados estimados y reales.
+
+#### Publicador de posición estimada: `publish_estimated_pose`
+Publica la posición estimada del sistema, incluyendo la covarianza asociada, en un mensaje de tipo PoseWithCovarianceStamped. Este mensaje contiene la posición, orientación y la incertidumbre del estado estimado.
+
+#### Publicador de posición actual : `publish_real_pose`
+Publica la posición real del sistema en un mensaje de tipo PoseWithCovarianceStamped. Este mensaje incluye la posición y orientación reales, pero no considera la covarianza del estado.
+
+### Estimación del filtro (Modelo Extendido)
+
+#### Función de odometría: `odom_callback`
+Este método procesa los datos de odometría recibidos. Inicializa el estado inicial del filtro de Kalman extendido si no está definido, calcula el estado actual del sistema en función de la odometría y el tiempo transcurrido, y utiliza el filtro para predecir y actualizar el estado estimado. También gestiona la visualización y la publicación de los estados estimados y reales.
+
+#### Publicador de posición estimada: `publish_estimated_pose`
+Publica la posición estimada del sistema, incluyendo la covarianza asociada, en un mensaje de tipo PoseWithCovarianceStamped. Este mensaje contiene la posición, orientación y la incertidumbre del estado estimado.
+
+#### Publicador de posición actual : `publish_real_pose`
+Publica la posición real del sistema en un mensaje de tipo PoseWithCovarianceStamped. Este mensaje incluye la posición y orientación reales, pero no considera la covarianza del estado.
 
 ## Resultados y discusión de las gráficas 
 
-
-
-4. Un README o una pequeña memoria en PDF explicando:
-    - Cómo se ha implementado cada parte.
-    - Resultados observados en los tres casos.
-    - Breve análisis de por qué ocurre lo observado.
 
 
