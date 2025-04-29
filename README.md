@@ -25,21 +25,21 @@ A continuación, se indicará el contenido de los scripts que contiene el paquet
 
 ## Implementación para cada caso 
 
-### KalmanFilter
+### KalmanFilter (Modelo Básico)
 
-#### `predict(u, dt)`
-Esta función predice el estado futuro del sistema utilizando el modelo de movimiento y la entrada de control `u` con el tiempo de paso `dt`. Actualiza el estado `mu` y la matriz de covarianza `Sigma` según el modelo dinámico y el ruido de proceso.
+#### Función de predicción: `predict(u, dt)`
+Esta función predice el estado futuro del sistema utilizando el modelo de movimiento y la entrada de control `u` con el tiempo de paso `dt`. Actualiza el estado `mu` y la matriz de covarianza `Sigma` utilizando las matrices de transición de estado (A) y de entrada de control (B), además de la covarianza del ruido del proceso (R). 
 
 **Entradas:**
-- `u`: Vector de control (velocidad, por ejemplo).
+- `u`: Vector de control
 - `dt`: Tiempo de paso entre predicciones.
 
 **Salidas:**
 - `mu`: Estado predicho.
 - `Sigma`: Covarianza actualizada.
 
-#### `update(z)`
-Actualiza la estimación del estado `mu` usando la medición `z` y la observación del sistema. Calcula el gain de Kalman `K` y ajusta el estado y la covarianza en función de la diferencia entre la medición y la predicción.
+#### Función de actualización: `update(z)`
+Actualiza la estimación del estado `mu` usando la medición `z` y la observación del sistema. Calcula la ganancia de Kalman `K` y ajusta el estado y la covarianza en función de la diferencia entre la medición y la predicción.
 
 **Entradas:**
 - `z`: Medición o observación.
@@ -48,10 +48,10 @@ Actualiza la estimación del estado `mu` usando la medición `z` y la observaci�
 - `mu`: Estado actualizado.
 - `Sigma`: Covarianza actualizada.
 
-### KalmanFilter_2
+### KalmanFilter_2 (Modelo Extendido)
 
-#### `predict(u, dt)`
-Esta función realiza una predicción similar a la de `KalmanFilter`, pero utilizando un modelo de movimiento extendido que incluye velocidades y omega. Actualiza el estado `mu` y la covarianza `Sigma` con el modelo de movimiento y ruido de proceso.
+#### Función de predicción: `predict(u, dt)`
+Esta función realiza una predicción similar a la de `KalmanFilter`, pero utilizando el modelo de movimiento extendido que incluye velocidades lineales y angulares.
 
 **Entradas:**
 - `u`: Vector de control (opcional).
@@ -61,15 +61,9 @@ Esta función realiza una predicción similar a la de `KalmanFilter`, pero utili
 - `mu`: Estado predicho.
 - `Sigma`: Covarianza actualizada.
 
-#### `update(z)`
+#### Función de actualización: `update(z)`
 Realiza la actualización del filtro de Kalman utilizando la medición `z` para ajustar la estimación del estado. Al igual que en `KalmanFilter`, usa el gain de Kalman para corregir el estado y la covarianza en base a la observación.
 
-**Entradas:**
-- `z`: Medición o observación.
-
-**Salidas:**
-- `mu`: Estado actualizado.
-- `Sigma`: Covarianza actualizada.
 ## Resultados y discusión de las gráficas 
 
 
