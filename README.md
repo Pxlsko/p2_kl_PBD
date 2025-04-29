@@ -23,6 +23,8 @@ A continuación, se indicará el contenido de los scripts que contiene el paquet
 7. **sensor_utils.py**: Funciones de alto nivel para los sensores
 8. **visualization.py**: Funciones de visualización de resultados
 
+---
+
 ## Implementación para cada caso 
 
 ### Modelo Básico
@@ -47,6 +49,8 @@ Este filtro emplea los estados de posición, orientación, y las velocidades lin
 
 El filtro de Kalman 2 ofrece una estimación conjunta y coherente de la posición y las velocidades del robot, mejorando así la precisión y la utilidad de la información para su navegación y control.
 
+---
+
 ## Resultados y discusión de las gráficas 
 Como aclaración, debido a que no poseo partición de disco para Ubuntu (no por ganas si no porque mi ordenador me lo impide), los resultados se han observado desde la CMD del Docker. Por tanto, los resultados no serán tan visibles, desgraciadamente.
 
@@ -66,6 +70,8 @@ Asimismo, añadiendo ruido alto en el proceso (R grande) para el modelo básico 
 Por último, el resultado obtenido del modelo básico, como en los apartados anteriores, vuelve a ser disperso y menos preciso. Por el contrario, en el modelo extenso las desviaciones con este ruido en el proceso resulta ser más parecido al del modelo básico aunque más fiel a la trayectoria.
 
 En resumen, el modelo extendido se ajusta a la trayectoria a pesar de las "oscilaciones" que da a lo largo de los puntos, mientras que el modelo básico tendrá un error que aumenta con el tiempo y por ello lo hará un tanto peor.
+
+---
 
 ## Ejecución de los nodos
 Para ejecutar los nodos y ver el funcionamiento, habrá que seguir los siguientes pasos:
