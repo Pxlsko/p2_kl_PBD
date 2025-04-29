@@ -1,4 +1,28 @@
 # Práctica 2: Filtro de Kalman en ROS 2
+
+En esta práctica se implementará un Filtro de Kalman (KF) para estimar la posición y velocidad de un robot móvil simulado con ROS 2. El objetivo principal es desarrollar un filtro de Kalman puro (lineal), utilizando únicamente modelos lineales de movimiento y observación. Para ello, se han estudiado tres diferentes configuraciones de ruido.
+
+---
+
+## Estructura del repositorio
+
+### Estructura del Filtro
+Para el estudio del Filtro del Kalman se implementaron dos versiones:
+1. **KalmanFilter**: Modelo básico que estima solo posición/orientación [x, y, θ], cuyo código se halla en la carpeta `/p2_kf_pdb/filters/kalman_filter.py`
+2. **KalmanFilter_2**: Modelo extendido que estima posición/orientación y velocidad [x, y, θ, vx, vy, ω], cuyo código se halla en la carpeta `/p2_kf_pbd/filters/kalman_filter.py`
+
+### Modelos y Nodos
+A continuación, se indicará el contenido de los scripts que contiene el paquete, `/p2_kf_pbd/~`:
+1. **kf_estimation.py**: Nodo con el modelo básico (posición)
+2. **kf_estimation_vel.py**: Nodo con el modelo extendido (posición y velocidad) 
+3. **motion_models.py**: Modelos de movimiento (predicción).
+   - Para el modelo básico: Matriz de transición A y matriz de control B.
+   - Para el modelo extendido: Incluye términos para la velocidad lineal y angular
+5. **observation_models.py**: Modelo de observación (corrección). C
+6. **sensor_utils.py**: Funciones de alto nivel para los sensores
+7. **visualization.py**: Funciones de visualización de resultados
+
+
 Este repositorio contiene el código base para la **Práctica 2** de la asignatura de *Ampliación de Robótica*, cuyo objetivo es implementar un **Filtro de Kalman (KF)** en un entorno simulado con **ROS 2**.
 
 El ejercicio se divide en dos partes: una primera aproximación basada en odometría con estimación de posición, y una segunda con estimación de posición y velocidad utilizando un modelo de estado extendido.
