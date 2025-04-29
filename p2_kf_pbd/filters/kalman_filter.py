@@ -3,16 +3,21 @@ import numpy as np
 from ..motion_models import velocity_motion_model, velocity_motion_model_2
 from ..observation_models import odometry_observation_model, odometry_observation_model_2
 
+low_noise_std_KF1 = [0.02, 0.02, 0.01]
+low_noise_std_KF2 = [0.02, 0.02, 0.01, 0.02, 0.02, 0.01]
+high_noise_std_KF1 = [0.1, 0.1, 0.03]
+high_noise_std_KF2 = [0.1, 0.1, 0.03, 0.1, 0.1, 0.03]
+
 class KalmanFilter:
 
-    def __init__(self, initial_state, initial_covariance, proc_noise_std = [0.05, 0.05, 0.02], obs_noise_std = [0.01, 0.01, 0.01]):
+    def __init__(self, initial_state, initial_covariance,  proc_noise_std = high_noise_std_KF2, obs_noise_std = low_noise_std_KF2):
         self.mu = np.array(initial_state)  # Initial state estimate [x, y, theta]
         self.Sigma = np.array(initial_covariance)  # Initial uncertainty
 
-        # Guardamos las funciones para poder recalcular A y B en cada predict
+        # Motion model matrices    
         self.state_transition_matrix_A, self.control_input_matrix_B = velocity_motion_model()
 
-        # Inicializamos A y B
+        # Inicialization of the state transition matrix (A) and control input matrix (B)
         self.A = self.state_transition_matrix_A()
         self.B = self.control_input_matrix_B(self.mu, 1.0)
 
@@ -26,20 +31,20 @@ class KalmanFilter:
         # Standard deviations for the noise in x, y, theta (observation or sensor model noise)
         self.obs_noise_std = np.array(obs_noise_std)
         self.Q = np.diag(self.obs_noise_std ** 2)  # Observation noise covariance
-            
+
     def predict(self, u, dt):
         self.A = self.state_transition_matrix_A()
         self.B = self.control_input_matrix_B(self.mu, dt)
 
-        # Asegura las dimensiones correctas
-        self.mu = np.array(self.mu).reshape(-1, 1)  # (3,1)
-        u = np.array(u).reshape(-1, 1)              # (2,1)
+        # Right dimensioning mu and u
+        self.mu = np.array(self.mu).reshape(-1, 1)  
+        u = np.array(u).reshape(-1, 1)            
 
-        # Prediccion del estado
+        # State prediction
         self.mu = self.A @ self.mu + self.B @ u
         self.Sigma = self.A @ self.Sigma @ self.A.T + self.R
 
-        # Devuelve mu como vector plano para facilitar su uso fuera
+        # Return mu as a flat vector for easier use outside
         self.mu = self.mu.flatten()
         return self.mu, self.Sigma
 
@@ -53,8 +58,7 @@ class KalmanFilter:
         return self.mu, self.Sigma
 
 class KalmanFilter_2:
-    def __init__(self, initial_state, initial_covariance,
-                 proc_noise_std=[0.01, 0.01, 0.01, 0.01, 0.01, 0.001], obs_noise_std=[0.01, 0.01, 0.01, 0.01, 0.01, 0.001]):
+    def __init__(self, initial_state, initial_covariance, proc_noise_std=low_noise_std_KF2, obs_noise_std=low_noise_std_KF2):
 
         self.mu = initial_state  # Initial state estimate [x, y, theta, vx, vy, omega]
         self.Sigma = initial_covariance  # Initial uncertainty
@@ -73,9 +77,11 @@ class KalmanFilter_2:
         A = self.A(dt)
         self.mu = np.array(self.mu).reshape(-1, 1)  # (6,1)
 
+        # State prediction
         self.mu = A @ self.mu
         self.Sigma = A @ self.Sigma @ A.T + self.R
 
+        # Return mu as a flat vector for easier use outside
         self.mu = self.mu.flatten()
         return self.mu, self.Sigma
 
