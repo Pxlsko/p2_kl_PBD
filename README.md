@@ -51,15 +51,14 @@ El filtro de Kalman 2 ofrece una estimación conjunta y coherente de la posició
 Como aclaración, debido a que no poseo partición de disco para Ubuntu (no por ganas si no porque mi ordenador me lo impide), los resultados se han observado desde la CMD del Docker. Por tanto, los resultados no serán tan visibles, desgraciadamente.
 
 ### Ruido Bajo
-El ruido del cual se ha hecho uso, para los modelos básico (KF1) y extendido (KF2), han sido `[0.02, 0.02, 0.01]` y `[0.02, 0.02, 0.01, 0.02, 0.02, 0.01]`, respectivamente. Los resultados de los modelos pueden verse en el directorio `Images/LowNoise_kf1.png` y `Images/LowNoise_kf2.png`, respectivamente.
+El ruido bajo del cual se ha hecho uso, para los modelos básico (KF1) y extendido (KF2), ha sido `[0.02, 0.02, 0.01]` y `[0.02, 0.02, 0.01, 0.02, 0.02, 0.01]`, respectivamente. Los resultados de los modelos pueden verse en el directorio `Images/LowNoise_kf1.png` y `Images/LowNoise_kf2.png`, respectivamente.
 
 
 
-high_noise_std_KF1 = [0.1, 0.1, 0.03]
-high_noise_std_KF2 = [0.1, 0.1, 0.03, 0.1, 0.1, 0.03]
+
 
 ### Ruido Alto en la medición
-
+Introduciendo un ruido alto a la medición (Q), el cual ha sido, para el modelo básico y extendido, `[0.1, 0.1, 0.03]` y `[0.1, 0.1, 0.03, 0.1, 0.1, 0.03]`
 ### Ruido Alto en el proceso
 
 
