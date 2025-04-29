@@ -48,6 +48,21 @@ Este filtro emplea los estados de posición, orientación, y las velocidades lin
 El filtro de Kalman 2 ofrece una estimación conjunta y coherente de la posición y las velocidades del robot, mejorando así la precisión y la utilidad de la información para su navegación y control.
 
 ## Resultados y discusión de las gráficas 
+Como aclaración, debido a que no poseo partición de disco para Ubuntu (no por ganas si no porque mi ordenador me lo impide), los resultados se han observado desde la CMD del Docker. Por tanto, los resultados no serán tan visibles, desgraciadamente.
+
+### Ruido Bajo
+El ruido del cual se ha hecho uso, para los modelos básico (KF1) y extendido (KF2), han sido `[0.02, 0.02, 0.01]` y `[0.02, 0.02, 0.01, 0.02, 0.02, 0.01]`, respectivamente.
+![Kf1](p2_kl_PBD/Images/LowNoise_kf1.png)
+![Kf2](p2_kl_PBD/Images/LowNoise_kf2.png)
+
+high_noise_std_KF1 = [0.1, 0.1, 0.03]
+high_noise_std_KF2 = [0.1, 0.1, 0.03, 0.1, 0.1, 0.03]
+
+### Ruido Alto en la medición
+
+### Ruido Alto en el proceso
+
+
 
 
 
