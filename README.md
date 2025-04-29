@@ -18,7 +18,7 @@ A continuación, se indicará el contenido de los scripts que contiene el paquet
 3. **motion_models.py**: Modelos de movimiento (predicción)
    - Para el modelo básico: Matriz de transición A y matriz de control B.
    - Para el modelo extendido: Además de lo anterior mencionado, incluye los términos para la velocidad lineal y angular
-5. **observation_models.py**: Modelo de observación (corrección)
+5. **observation_models.py**: Modelo de observación (observación)
    - Matrices C para mapear el estado interno a las observaciones medidas 
 7. **sensor_utils.py**: Funciones de alto nivel para los sensores
 8. **visualization.py**: Funciones de visualización de resultados
